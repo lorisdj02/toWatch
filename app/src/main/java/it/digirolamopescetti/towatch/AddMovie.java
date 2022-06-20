@@ -51,7 +51,7 @@ public class AddMovie extends AppCompatActivity implements AdapterView.OnItemSel
                 //Toast.makeText(AddMovie.this, URL, Toast.LENGTH_SHORT).show();        DIALOG
 
                 if(URL.contains("www.netflix.com/") && URL.contains("/title/")){
-
+                    //SCRIPT
                 }
                 else
                     Toast.makeText(AddMovie.this, "Insert netflix URL!", Toast.LENGTH_SHORT).show();
