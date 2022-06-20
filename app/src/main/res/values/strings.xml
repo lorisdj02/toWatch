@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">toWatch</string>
+    
+    <string-array name="websites">
+        <item>Netflix</item>
+        <item>Prime Video</item>
+        <item>Disney+</item>
+        <item>Crunchyroll</item>
+        <item>Hulu</item>
+        <item>HBO Max</item>
+        <item>Custom</item>
+    </string-array>
+</resources>
