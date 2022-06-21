@@ -2,7 +2,8 @@ package it.digirolamopescetti.towatch;
 
 public class Movie {
     private String URL;                 //movie's URL
-    private String platform;            //movie's Platform
+    private String webSite;            //movie's Platform
+    private String name;                //movie's name
     private Boolean isFavourite;          //if the movie has the star or not
     private String image;               //movie's image
     private int status;
@@ -13,12 +14,13 @@ public class Movie {
         2 -> GREEN -> watched
      */
 
-    public Movie(String URL, String platform, String image) {
+    public Movie(String URL, String platform, String image, String name) {
         this.URL = URL;
-        this.platform = platform;
+        this.webSite = platform;
         this.image = image;
         this.isFavourite = false;
         this.status = 0;
+        this.name = name;
     }
 
     public String getURL() {
@@ -30,11 +32,11 @@ public class Movie {
     }
 
     public String getPlatform() {
-        return platform;
+        return webSite;
     }
 
     public void setPlatform(String platform) {
-        this.platform = platform;
+        this.webSite = platform;
     }
 
     public Boolean getFavourite() {
@@ -61,11 +63,20 @@ public class Movie {
         this.status = status;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return "Movie{" +
                 "URL='" + URL + '\'' +
-                ", platform='" + platform + '\'' +
+                ", webSite='" + webSite + '\'' +
+                ", name='" + name + '\'' +
                 ", isFavourite=" + isFavourite +
                 ", image='" + image + '\'' +
                 ", status=" + status +

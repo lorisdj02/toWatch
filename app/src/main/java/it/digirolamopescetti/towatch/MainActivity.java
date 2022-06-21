@@ -19,13 +19,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        startBtnAdd();
+        startBtnAdd();              //use function to init layouts things (devo scrivere in inglese sennò mi da ste cose verdi)
         startBtnRemove();
     }
 
     private void startBtnAdd(){
-        //configure Add btn
+        //config Add (floating) button
         btnAdd = (FloatingActionButton) findViewById(R.id.btnAdd);
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
@@ -37,8 +36,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startBtnRemove(){
+        //config Remove (floating) button
         btnRemove = (FloatingActionButton) findViewById(R.id.btnRemove);
-
         btnRemove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

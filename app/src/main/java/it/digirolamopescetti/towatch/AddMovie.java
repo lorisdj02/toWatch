@@ -1,5 +1,8 @@
 package it.digirolamopescetti.towatch;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -32,6 +35,7 @@ public class AddMovie extends AppCompatActivity implements AdapterView.OnItemSel
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_movie);
 
+        //init layout
         startBtnUrl();
         startSpnWebSite();
         startBtnConfirm();
@@ -48,28 +52,29 @@ public class AddMovie extends AppCompatActivity implements AdapterView.OnItemSel
             @Override
             public void onClick(View view) {
                 String URL = inUrl.getText().toString();
-                //Toast.makeText(AddMovie.this, URL, Toast.LENGTH_SHORT).show();        DIALOG
 
                 if(URL.contains("www.netflix.com/") && URL.contains("/title/")){
                     //SCRIPT
+                    //add to database
                 }
                 else
-                    Toast.makeText(AddMovie.this, "Insert netflix URL!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddMovie.this, "Insert netflix URL!", Toast.LENGTH_SHORT).show();        //use this to create popups
                 }
             });
     }
 
     private void startSpnWebSite(){
-
+        //to attach the spinner to String array in strings.xml called "websites"
         spnWebSite = findViewById(R.id.spnWebSite);
         ArrayAdapter<CharSequence> adapterWebSite = ArrayAdapter.createFromResource(this, R.array.websites, android.R.layout.simple_spinner_item);
         adapterWebSite.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnWebSite.setAdapter(adapterWebSite);
-        spnWebSite.setOnItemSelectedListener(this);
+        spnWebSite.setOnItemSelectedListener(this); //you need to implement AdapterView.OnItemSelectedListener
     }
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        //when you select an item, check if it is Custom or not (if you implement AdapterView.OnItemSelectedListener you have to implement these onItemSelected and onNothingSelected)
         inWebSite = findViewById(R.id.inWebSite);
         String webSiteTXT = adapterView.getItemAtPosition(i).toString();
         if(webSiteTXT.equals("Custom"))
@@ -81,22 +86,23 @@ public class AddMovie extends AppCompatActivity implements AdapterView.OnItemSel
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
-        //nothing
+        //you can't select nothing, impossible to use this function
     }
 
     private void startBtnConfirm(){
+        //config Confirm Button
         btnConfirm = (Button) findViewById(R.id.btnConfirm);
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //connect to database
+                //insert data into database (after checked that the variables are not empty)
             }
         });
     }
 
     private void startBtnCancel(){
+        //config Cancel button, simply close the activity and come back to main activity
         btnCancel = (Button) findViewById(R.id.btnCancel);
-
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,26 +112,25 @@ public class AddMovie extends AppCompatActivity implements AdapterView.OnItemSel
     }
 
     private void startImg(){
+        //config Image Button
+        //tutorial https://www.youtube.com/watch?v=6E5ODrmUtmo
         inImg = (ImageButton) findViewById(R.id.inImg);
+        ActivityResultLauncher<String> takeImage = registerForActivityResult(
+                new ActivityResultContracts.GetContent(),
+                new ActivityResultCallback<Uri>() {
+                    @Override
+                    public void onActivityResult(Uri result) {
+                        inImg.setImageURI(result);
+                        inImg.setBackgroundColor(WHITE);
+                    }
+                }
+        );
         inImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent,"Choose Image"), IMAGE_CODE);
+                takeImage.launch("image/*");
             }
         });
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode == 1){
-            Uri uri = data.getData();
-            inImg.setImageURI(uri);
-            inImg.setBackgroundColor(WHITE);
-        }
-    }
 }
