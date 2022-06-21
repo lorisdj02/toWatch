@@ -34,7 +34,7 @@ public class AddMovie extends AppCompatActivity implements AdapterView.OnItemSel
 
         startBtnUrl();
         startSpnWebSite();
-        startBtnAdd();
+        startBtnConfirm();
         startBtnCancel();
         startImg();
     }
@@ -68,7 +68,23 @@ public class AddMovie extends AppCompatActivity implements AdapterView.OnItemSel
         spnWebSite.setOnItemSelectedListener(this);
     }
 
-    private void startBtnAdd(){
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        inWebSite = findViewById(R.id.inWebSite);
+        String webSiteTXT = adapterView.getItemAtPosition(i).toString();
+        if(webSiteTXT.equals("Custom"))
+            inWebSite.setEnabled(true);
+        else
+            inWebSite.setEnabled(false);
+        inWebSite.setText("");
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+        //nothing
+    }
+
+    private void startBtnConfirm(){
         btnConfirm = (Button) findViewById(R.id.btnConfirm);
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,22 +103,6 @@ public class AddMovie extends AppCompatActivity implements AdapterView.OnItemSel
                 finish();
             }
         });
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        inWebSite = findViewById(R.id.inWebSite);
-        String webSiteTXT = adapterView.getItemAtPosition(i).toString();
-        if(webSiteTXT.equals("Custom"))
-            inWebSite.setEnabled(true);
-        else
-            inWebSite.setEnabled(false);
-        inWebSite.setText("");
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-        //nothing
     }
 
     private void startImg(){
