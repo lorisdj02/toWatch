@@ -5,30 +5,41 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.util.Pools;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
+import java.util.Locale;
+
 //https://media.netflix.com/it/only-on-netflix/IDNETFLIX to retrieve images
 
 public class AddMovie extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
-    final int IMAGE_CODE = 1;
-    Spinner spnWebSite;
-    Button btnConfirm, btnCancel, btnUrl;
-    TextView inWebSite, inUrl;
-    ImageButton inImg;
-    final int WHITE = 0;      //color white
+    private Spinner spnWebSite;
+    private Button btnConfirm, btnCancel, btnUrl;
+    private EditText inWebSite, inUrl, inName;
+    private ImageButton inImg;
+    private final int WHITE = 0;      //color white
+    private String imgPath = null;
+    String webSite;
+    dbHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +54,11 @@ public class AddMovie extends AppCompatActivity implements AdapterView.OnItemSel
         startImg();
     }
 
+
     private void startBtnUrl(){
         inUrl = findViewById(R.id.inUrl);
         btnUrl = findViewById(R.id.btnUrl);
 
-        btnUrl.setEnabled(true);
         btnUrl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,7 +69,7 @@ public class AddMovie extends AppCompatActivity implements AdapterView.OnItemSel
                     //add to database
                 }
                 else
-                    Toast.makeText(AddMovie.this, "Insert netflix URL!", Toast.LENGTH_SHORT).show();        //use this to create popups
+                    showText("Insert netflix URL!");        //use this to create popups
                 }
             });
     }
@@ -79,8 +90,10 @@ public class AddMovie extends AppCompatActivity implements AdapterView.OnItemSel
         String webSiteTXT = adapterView.getItemAtPosition(i).toString();
         if(webSiteTXT.equals("Custom"))
             inWebSite.setEnabled(true);
-        else
+        else {
             inWebSite.setEnabled(false);
+            webSite = webSiteTXT;
+        }
         inWebSite.setText("");
     }
 
@@ -92,12 +105,40 @@ public class AddMovie extends AppCompatActivity implements AdapterView.OnItemSel
     private void startBtnConfirm(){
         //config Confirm Button
         btnConfirm = (Button) findViewById(R.id.btnConfirm);
+        inWebSite = findViewById(R.id.inWebSite);
+        inName = findViewById(R.id.inName);
+        spnWebSite = findViewById(R.id.spnWebSite);
+        inImg = findViewById(R.id.inImg);
+        db = new dbHelper(AddMovie.this);
+
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 //insert data into database (after checked that the variables are not empty)
+                if(!inName.getText().toString().trim().isEmpty() && (!inWebSite.getText().toString().trim().isEmpty() || !inWebSite.isEnabled()) && imgPath != null){
+                    if(inWebSite.isEnabled())
+                        webSite = inWebSite.getText().toString();
+
+                    byte[] imgByte = imgToByte(inImg);
+                    if(db.addMovie(inName.getText().toString().trim(), null, webSite.trim(), imgByte)){
+                        showText("Movie added!");
+                        back();
+                    }
+                    else
+                        showText("Error adding movie!");
+                }
+                else
+                    showText("Fill all fields!");
             }
         });
+    }
+
+    private byte[] imgToByte(ImageButton image){
+        Bitmap bm = ((BitmapDrawable)image.getDrawable()).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        return stream.toByteArray();
     }
 
     private void startBtnCancel(){
@@ -106,9 +147,14 @@ public class AddMovie extends AppCompatActivity implements AdapterView.OnItemSel
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+               back();
             }
         });
+    }
+
+    private void back(){
+        startActivity(new Intent(AddMovie.this, MainActivity.class));
+        finish();
     }
 
     private void startImg(){
@@ -120,8 +166,11 @@ public class AddMovie extends AppCompatActivity implements AdapterView.OnItemSel
                 new ActivityResultCallback<Uri>() {
                     @Override
                     public void onActivityResult(Uri result) {
-                        inImg.setImageURI(result);
-                        inImg.setBackgroundColor(WHITE);
+                        if (result != null && !result.equals(Uri.EMPTY)) {
+                            inImg.setImageURI(result);
+                            imgPath = result.getPath();
+                            inImg.setBackgroundColor(WHITE);
+                        }
                     }
                 }
         );
@@ -133,4 +182,7 @@ public class AddMovie extends AppCompatActivity implements AdapterView.OnItemSel
         });
     }
 
+    private void showText(String string){
+        Toast.makeText(AddMovie.this, string, Toast.LENGTH_SHORT).show();
+    }
 }

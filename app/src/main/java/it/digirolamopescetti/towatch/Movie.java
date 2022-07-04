@@ -1,11 +1,15 @@
 package it.digirolamopescetti.towatch;
 
+//USELESS CLASS
+
+import android.graphics.Bitmap;
+
 public class Movie {
-    private String URL;                 //movie's URL
-    private String webSite;            //movie's Platform
+    private String url;                 //movie's URL
+    private String website;            //movie's Platform
     private String name;                //movie's name
-    private Boolean isFavourite;          //if the movie has the star or not
-    private String image;               //movie's image
+    private Boolean favourite;          //if the movie has the star or not
+    private Bitmap img;               //movie's image
     private int status;
     /*
     STATUS:
@@ -14,45 +18,45 @@ public class Movie {
         2 -> GREEN -> watched
      */
 
-    public Movie(String URL, String platform, String image, String name) {
-        this.URL = URL;
-        this.webSite = platform;
-        this.image = image;
-        this.isFavourite = false;
-        this.status = 0;
+    public Movie(String name, String url, String webSite, Boolean favourite, int status, Bitmap image) {
+        this.url = url;
+        this.website = webSite;
+        this.img = image;
+        this.favourite = favourite;
+        this.status = status;
         this.name = name;
     }
 
-    public String getURL() {
-        return URL;
+    public String getUrl() {
+        return url;
     }
 
-    public void setURL(String URL) {
-        this.URL = URL;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
-    public String getPlatform() {
-        return webSite;
+    public String getWebsite() {
+        return website;
     }
 
-    public void setPlatform(String platform) {
-        this.webSite = platform;
+    public void setWebsite(String platform) {
+        this.website = platform;
     }
 
     public Boolean getFavourite() {
-        return isFavourite;
+        return favourite;
     }
 
     public void setFavourite(Boolean favourite) {
-        isFavourite = favourite;
+        this.favourite = favourite;
     }
 
-    public String getImage() {
-        return image;
+    public Bitmap getImg() {
+        return img;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImg(Bitmap img) {
+        this.img = img;
     }
 
     public int getStatus() {
@@ -74,11 +78,11 @@ public class Movie {
     @Override
     public String toString() {
         return "Movie{" +
-                "URL='" + URL + '\'' +
-                ", webSite='" + webSite + '\'' +
+                "URL='" + url + '\'' +
+                ", webSite='" + website + '\'' +
                 ", name='" + name + '\'' +
-                ", isFavourite=" + isFavourite +
-                ", image='" + image + '\'' +
+                ", isFavourite=" + favourite +
+                ", image='" + img + '\'' +
                 ", status=" + status +
                 '}';
     }
