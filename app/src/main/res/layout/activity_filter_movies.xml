@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FilterMovies">
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="Select filters:"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/selectName"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="56dp"
+        android:ems="10"
+        android:hint="Name"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <RadioGroup
+        android:id="@+id/selectWebSite"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="36dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/selectName">
+
+        <RadioButton
+            android:id="@+id/radioNetflix"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:text="@string/netflix" />
+
+        <RadioButton
+            android:id="@+id/radioPrime"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:text="@string/primevideo" />
+
+        <RadioButton
+            android:id="@+id/radioDisney"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:text="@string/disney" />
+
+        <RadioButton
+            android:id="@+id/radioCrunchyroll"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="@string/crunchyroll" />
+
+        <RadioButton
+            android:id="@+id/radioHulu"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="@string/hulu" />
+
+        <RadioButton
+            android:id="@+id/radioHBO"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="@string/hbomax" />
+
+        <RadioButton
+            android:id="@+id/radioOthers"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="@string/custom" />
+
+    </RadioGroup>
+
+    <ImageButton
+        android:id="@+id/selectStatus"
+        android:layout_width="150dp"
+        android:layout_height="280dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="56dp"
+        android:background="#0048FF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/selectName" />
+
+    <Button
+        android:id="@+id/btnSelectApply"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="28dp"
+        android:text="Apply"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/btnSelectCancel"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginBottom="28dp"
+        android:text="Reset"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/selectFavorite"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="45dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/selectStatus">
+
+        <RadioButton
+            android:id="@+id/radioFavorite"
+            android:layout_width="150dp"
+            android:layout_height="45dp"
+            android:text="Favorite" />
+
+        <RadioButton
+            android:id="@+id/radioNotFavorite"
+            android:layout_width="150dp"
+            android:layout_height="45dp"
+            android:text="Not Favorite" />
+    </RadioGroup>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

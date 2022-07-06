@@ -40,6 +40,8 @@ public class AddMovie extends AppCompatActivity implements AdapterView.OnItemSel
     private String imgPath = null;
     String webSite;
     dbHelper db;
+    boolean custom = false;
+    boolean queryRes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +51,8 @@ public class AddMovie extends AppCompatActivity implements AdapterView.OnItemSel
         //init layout
         startBtnUrl();
         startSpnWebSite();
-        startBtnConfirm();
         startBtnCancel();
+        startBtnConfirm();
         startImg();
     }
 
@@ -62,14 +64,12 @@ public class AddMovie extends AppCompatActivity implements AdapterView.OnItemSel
         btnUrl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String URL = inUrl.getText().toString();
-
-                if(URL.contains("www.netflix.com/") && URL.contains("/title/")){
+                if(inUrl.getText().toString().trim().contains("www.netflix.com/") && inUrl.getText().toString().trim().contains("/title/")){
                     //SCRIPT
                     //add to database
                 }
                 else
-                    showText("Insert netflix URL!");        //use this to create popups
+                    Sirol.showText(AddMovie.this,"Insert netflix URL!");        //use this to create popups
                 }
             });
     }
@@ -114,31 +114,29 @@ public class AddMovie extends AppCompatActivity implements AdapterView.OnItemSel
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 //insert data into database (after checked that the variables are not empty)
-                if(!inName.getText().toString().trim().isEmpty() && (!inWebSite.getText().toString().trim().isEmpty() || !inWebSite.isEnabled()) && imgPath != null){
-                    if(inWebSite.isEnabled())
-                        webSite = inWebSite.getText().toString();
 
-                    byte[] imgByte = imgToByte(inImg);
-                    if(db.addMovie(inName.getText().toString().trim(), null, webSite.trim(), imgByte)){
-                        showText("Movie added!");
+                if(!inName.getText().toString().trim().isEmpty() && (!inWebSite.getText().toString().trim().isEmpty() || !inWebSite.isEnabled()) && imgPath != null){
+                    if(inWebSite.isEnabled()) {
+                        webSite = inWebSite.getText().toString();
+                        custom = true;
+                    }
+                    if(inUrl.getText().toString().trim().equals("") || inUrl.getText().toString().isEmpty())
+                        queryRes = db.addMovie(inName.getText().toString().trim(), null, webSite.trim(), Sirol.imgToByte(inImg), custom);
+                    else
+                        queryRes = db.addMovie(inName.getText().toString().trim(), inUrl.getText().toString().trim(), webSite.trim(), Sirol.imgToByte(inImg), custom);
+
+                    if(queryRes){
+                        Sirol.showText(AddMovie.this,"Movie added!");
                         back();
                     }
                     else
-                        showText("Error adding movie!");
+                        Sirol.showText(AddMovie.this,"Error adding movie!");
                 }
                 else
-                    showText("Fill all fields!");
+                    Sirol.showText(AddMovie.this,"Fill all fields!");
             }
         });
-    }
-
-    private byte[] imgToByte(ImageButton image){
-        Bitmap bm = ((BitmapDrawable)image.getDrawable()).getBitmap();
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bm.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        return stream.toByteArray();
     }
 
     private void startBtnCancel(){
@@ -180,9 +178,5 @@ public class AddMovie extends AppCompatActivity implements AdapterView.OnItemSel
                 takeImage.launch("image/*");
             }
         });
-    }
-
-    private void showText(String string){
-        Toast.makeText(AddMovie.this, string, Toast.LENGTH_SHORT).show();
     }
 }
