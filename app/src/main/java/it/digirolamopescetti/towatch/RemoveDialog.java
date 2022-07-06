@@ -44,7 +44,7 @@ public class RemoveDialog extends AppCompatDialogFragment {
         try{
             listener = (DialogListener) context;
         }catch (ClassCastException e){
-            throw new ClassCastException(context.toString() + "must implement DialogListener");
+            throw new ClassCastException(context + "must implement DialogListener");
         }
     }
 }

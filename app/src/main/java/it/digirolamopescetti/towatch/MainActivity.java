@@ -7,15 +7,12 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -59,26 +56,18 @@ public class MainActivity extends AppCompatActivity implements RemoveDialog.Dial
 
     private void startBtnAdd(){
         //config Add (floating) button
-        btnAdd = (FloatingActionButton) findViewById(R.id.btnAdd);
+        btnAdd = findViewById(R.id.btnAdd);
 
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, AddMovie.class));
-                finish();
-            }
+        btnAdd.setOnClickListener(view -> {
+            startActivity(new Intent(MainActivity.this, AddMovie.class));
+            finish();
         });
     }
 
     private void startBtnRemove(){
         //config Remove (floating) button
-        btnRemove = (FloatingActionButton) findViewById(R.id.btnRemove);
-        btnRemove.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openRemDialog();
-            }
-        });
+        btnRemove = findViewById(R.id.btnRemove);
+        btnRemove.setOnClickListener(view -> openRemDialog());
     }
 
 
@@ -86,26 +75,23 @@ public class MainActivity extends AppCompatActivity implements RemoveDialog.Dial
     private void startBtnFav(){
         btnFavourite = findViewById(R.id.btnFavourite);
 
-        btnFavourite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(curMovie.getFavourite()) {
-                    curMovie.setFavourite(Boolean.FALSE);
-                    Sirol.showText(MainActivity.this,curMovie.getName() + " is no longer a favorite.");
-                }
-                else {
-                    curMovie.setFavourite(Boolean.TRUE);
-                    Sirol.showText(MainActivity.this,curMovie.getName() + " is a favorite!");
-                }
-                if(!db.changeFavourite(curMovie.getName(), curMovie.getFavourite()))
-                    Sirol.showText(MainActivity.this, "Error in favorite.");
-                else{
-                    if(!applyFilter)
-                        updateData();
-                    else
-                        updateData(recName, recWebSite, recFavorite, recStatus, true);
-                    displayData();
-                }
+        btnFavourite.setOnClickListener(v -> {
+            if(curMovie.getFavourite()) {
+                curMovie.setFavourite(Boolean.FALSE);
+                Sirol.showText(MainActivity.this,curMovie.getName() + " is no longer a favorite.");
+            }
+            else {
+                curMovie.setFavourite(Boolean.TRUE);
+                Sirol.showText(MainActivity.this,curMovie.getName() + " is a favorite!");
+            }
+            if(!db.changeFavourite(curMovie.getName(), curMovie.getFavourite()))
+                Sirol.showText(MainActivity.this, "Error in favorite.");
+            else{
+                if(!applyFilter)
+                    updateData();
+                else
+                    updateData(recName, recWebSite, recFavorite, recStatus, true);
+                displayData();
             }
         });
     }
@@ -113,33 +99,30 @@ public class MainActivity extends AppCompatActivity implements RemoveDialog.Dial
     private void startBtnStatus() {
         btnStatus = findViewById(R.id.btnStatus);
 
-        btnStatus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btnStatus.setOnClickListener(v -> {
 
-                switch (curMovie.getStatus()) {
-                    case 0:
-                        Sirol.showText(MainActivity.this,"Watching");
-                        curMovie.setStatus(curMovie.getStatus() + 1);
-                        break;
-                    case 1:
-                        Sirol.showText(MainActivity.this,"Watched");
-                        curMovie.setStatus(curMovie.getStatus() + 1);
-                        break;
-                    case 2:
-                        Sirol.showText(MainActivity.this,"To watch");
-                        curMovie.setStatus(0);
-                        break;
-                }
-                if(!db.changeStatus(curMovie.getName(), curMovie.getStatus()))
-                    Sirol.showText(MainActivity.this, "Error in status.");
-                else {
-                    if (!applyFilter)
-                        updateData();
-                    else
-                        updateData(recName, recWebSite, recFavorite, recStatus, true);
-                    displayData();
-                }
+            switch (curMovie.getStatus()) {
+                case 0:
+                    Sirol.showText(MainActivity.this,"Watching");
+                    curMovie.setStatus(curMovie.getStatus() + 1);
+                    break;
+                case 1:
+                    Sirol.showText(MainActivity.this,"Watched");
+                    curMovie.setStatus(curMovie.getStatus() + 1);
+                    break;
+                case 2:
+                    Sirol.showText(MainActivity.this,"To watch");
+                    curMovie.setStatus(0);
+                    break;
+            }
+            if(!db.changeStatus(curMovie.getName(), curMovie.getStatus()))
+                Sirol.showText(MainActivity.this, "Error in status.");
+            else {
+                if (!applyFilter)
+                    updateData();
+                else
+                    updateData(recName, recWebSite, recFavorite, recStatus, true);
+                displayData();
             }
         });
     }
@@ -147,52 +130,40 @@ public class MainActivity extends AppCompatActivity implements RemoveDialog.Dial
     private void startBtnNext(){
         btnNext = findViewById(R.id.btnNext);
 
-        btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!cursor.moveToNext())
-                    cursor.moveToFirst();
-                displayData();
-            }
+        btnNext.setOnClickListener(v -> {
+            if(!cursor.moveToNext())
+                cursor.moveToFirst();
+            displayData();
         });
     }
 
     private void startBtnPrev(){
         btnPrev = findViewById(R.id.btnPrev);
 
-        btnPrev.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!cursor.moveToPrevious())
-                    cursor.moveToLast();
-                displayData();
-            }
+        btnPrev.setOnClickListener(v -> {
+            if(!cursor.moveToPrevious())
+                cursor.moveToLast();
+            displayData();
         });
     }
 
     private void startBtnSort(){
         btnSort = findViewById(R.id.btnSort);
 
-        btnSort.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, FilterMovies.class));
-                finish();
-            }
+        btnSort.setOnClickListener(v -> {
+            startActivity(new Intent(MainActivity.this, FilterMovies.class));
+            finish();
         });
     }
 
     private void startImg(){
         outImg = findViewById(R.id.outImg);
 
-        outImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(curMovie.getUrl() != null)
-                    gotoUrl(curMovie.getUrl());
-                else
-                    Sirol.showText(MainActivity.this, "No url for " + curMovie.getName() + "!");
-            }
+        outImg.setOnClickListener(v -> {
+            if(curMovie.getUrl() != null)
+                gotoUrl(curMovie.getUrl());
+            else
+                Sirol.showText(MainActivity.this, "No url for " + curMovie.getName() + "!");
         });
     }
 

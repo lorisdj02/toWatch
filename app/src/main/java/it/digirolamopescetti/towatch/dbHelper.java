@@ -8,9 +8,6 @@ import android.content.Context;
 
 import androidx.annotation.Nullable;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 
 //database:
 //URL (NULL)
@@ -129,7 +126,6 @@ public class dbHelper extends SQLiteOpenHelper {
         if(status != -1){
             addAndToQuery(cont, query);
             query.append(COL_STATUS + " = " + status);
-            cont++;
         }
 
         query.append(";");
