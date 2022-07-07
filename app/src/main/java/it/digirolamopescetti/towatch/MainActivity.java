@@ -16,20 +16,27 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+//As the name says, this is the main activity of the app.
+//IMPORTANT -> ALL STRINGS NEED TO BE IMPLEMENTED IN strings.xml TO BE USED WITH DIFFERENT LANGUAGES (penso sia così lol)
+//ADD PERMISSIONS (IMPORTANTTTTTTTTTTTTTTTTTTTTTTT)
 public class MainActivity extends AppCompatActivity implements RemoveDialog.DialogListener {
 
-    FloatingActionButton btnAdd, btnRemove, btnNext, btnPrev, btnSort;
+    FloatingActionButton btnAdd, btnRemove, btnNext, btnPrev, btnSort, btnSettings;
     TextView outName, outWebSite;
     ImageView outImg;
     ImageButton btnFavourite, btnStatus;
+    //current movie (shown movie) is in this variable
     Movie curMovie;
     dbHelper db = new dbHelper(this);
+    //Cursor -> it collects data stored in database using SELECT
     Cursor cursor;
 
+    //these are the received values from the FilterMovies class
     String recName = "";
     String recWebSite = "";
     int recFavorite = -1;
     int recStatus = -1;
+    //applyFilter -> when it's false, there are no filters to apply.
     boolean applyFilter = false;
 
     @Override
@@ -46,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements RemoveDialog.Dial
         startBtnPrev();
         startBtnSort();
         startImg();
+        startBtnSettings();
 
         initData();
 
@@ -55,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements RemoveDialog.Dial
     }
 
     private void startBtnAdd(){
-        //config Add (floating) button
+        //config Add (floating) button -> open AddMovie class
         btnAdd = findViewById(R.id.btnAdd);
 
         btnAdd.setOnClickListener(view -> {
@@ -65,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements RemoveDialog.Dial
     }
 
     private void startBtnRemove(){
-        //config Remove (floating) button
+        //config Remove (floating) button -> open RemoveDialog class
         btnRemove = findViewById(R.id.btnRemove);
         btnRemove.setOnClickListener(view -> openRemDialog());
     }
@@ -73,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements RemoveDialog.Dial
 
 
     private void startBtnFav(){
+        //change favorite (TRUE/FALSE) to current movie
         btnFavourite = findViewById(R.id.btnFavourite);
 
         btnFavourite.setOnClickListener(v -> {
@@ -87,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements RemoveDialog.Dial
             if(!db.changeFavourite(curMovie.getName(), curMovie.getFavourite()))
                 Sirol.showText(MainActivity.this, "Error in favorite.");
             else{
+                //if it's false, it will display all data, else only the data we need
                 if(!applyFilter)
                     updateData();
                 else
@@ -97,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements RemoveDialog.Dial
     }
 
     private void startBtnStatus() {
+        //change status of current movie
         btnStatus = findViewById(R.id.btnStatus);
 
         btnStatus.setOnClickListener(v -> {
@@ -118,6 +129,7 @@ public class MainActivity extends AppCompatActivity implements RemoveDialog.Dial
             if(!db.changeStatus(curMovie.getName(), curMovie.getStatus()))
                 Sirol.showText(MainActivity.this, "Error in status.");
             else {
+                //the same as before
                 if (!applyFilter)
                     updateData();
                 else
@@ -128,6 +140,7 @@ public class MainActivity extends AppCompatActivity implements RemoveDialog.Dial
     }
 
     private void startBtnNext(){
+        //show the next movie (or the first)
         btnNext = findViewById(R.id.btnNext);
 
         btnNext.setOnClickListener(v -> {
@@ -138,6 +151,7 @@ public class MainActivity extends AppCompatActivity implements RemoveDialog.Dial
     }
 
     private void startBtnPrev(){
+        //show the movie before (or the last)
         btnPrev = findViewById(R.id.btnPrev);
 
         btnPrev.setOnClickListener(v -> {
@@ -148,6 +162,7 @@ public class MainActivity extends AppCompatActivity implements RemoveDialog.Dial
     }
 
     private void startBtnSort(){
+        //open FilterMovies class
         btnSort = findViewById(R.id.btnSort);
 
         btnSort.setOnClickListener(v -> {
@@ -157,6 +172,7 @@ public class MainActivity extends AppCompatActivity implements RemoveDialog.Dial
     }
 
     private void startImg(){
+        //When you click image, open Chrome and go to url
         outImg = findViewById(R.id.outImg);
 
         outImg.setOnClickListener(v -> {
@@ -167,7 +183,17 @@ public class MainActivity extends AppCompatActivity implements RemoveDialog.Dial
         });
     }
 
+    private void startBtnSettings(){
+        btnSettings = findViewById(R.id.btnSettings);
+
+        btnSettings.setOnClickListener(v -> {
+            startActivity(new Intent(MainActivity.this, Settings.class));
+            finish();
+        });
+    }
+
     private void initData(){
+        //select all data in database
         cursor = db.selectAll();     //put in cursor SELECT *
 
         outName = findViewById(R.id.outName);
@@ -178,10 +204,13 @@ public class MainActivity extends AppCompatActivity implements RemoveDialog.Dial
     }
 
     private void receiveFilters(){
+        //receive filters from FilterMovies class
         Intent intent = getIntent();
         applyFilter = intent.getBooleanExtra(FilterMovies.keyApply, false);
 
         if(applyFilter) {
+            //if it's necessary (so if you want filters) this if will be activated and through keys, you'll receive
+            //all data you need
             recName = intent.getStringExtra(FilterMovies.keyName);
             recWebSite = intent.getStringExtra(FilterMovies.keyWebSite);
             recFavorite = intent.getIntExtra(FilterMovies.keyFavorite, -1);
@@ -191,8 +220,9 @@ public class MainActivity extends AppCompatActivity implements RemoveDialog.Dial
             displayData();
         }
     }
-    @SuppressLint("SetTextI18n")
+
     private void displayData(){
+        //to show current movie (if the cursor isn't empty)
         if(cursor.getCount() == 0){
             //if TABLE is empty, disable
             outWebSite.setText("");
@@ -215,6 +245,7 @@ public class MainActivity extends AppCompatActivity implements RemoveDialog.Dial
             outName.setText(curMovie.getName());
             outWebSite.setText(curMovie.getWebsite());
             outImg.setImageBitmap(curMovie.getImg());
+            //stus is memorized with 0 -> red ; 1 -> yellow ; 2 -> green
             switch (curMovie.getStatus()){
                 case 0:
                     btnStatus.setBackground(AppCompatResources.getDrawable(MainActivity.this, R.drawable.status_red));
@@ -232,6 +263,7 @@ public class MainActivity extends AppCompatActivity implements RemoveDialog.Dial
             else
                 btnFavourite.setBackground(AppCompatResources.getDrawable(MainActivity.this, R.drawable.star_off));
             if(cursor.getCount() == 1){
+                //if there is only 1 movie, disable buttons (just for aesthetics)
                 btnNext.setEnabled(false);
                 btnPrev.setEnabled(false);
             }
@@ -240,15 +272,18 @@ public class MainActivity extends AppCompatActivity implements RemoveDialog.Dial
     }
 
     private void updateData(){
+        //refresh data but use same position
         Cursor tempCursor = cursor;
         cursor = db.selectAll();
         cursor.moveToPosition(tempCursor.getPosition());
     }
 
     private void updateData(String name, String webSite, int favorite, int status, boolean savePosition){
+        //refresh data WITH FILTERS
         Cursor tempCursor = cursor;
         cursor = db.applyFilters(name, webSite, favorite, status);
-        if(savePosition){
+        if(savePosition && tempCursor.getPosition() < cursor.getCount()){
+            //if savePosition is true, you'll have the same position (check if is a valid position or not)
             cursor.moveToPosition(tempCursor.getPosition());
         }
         else
@@ -256,6 +291,7 @@ public class MainActivity extends AppCompatActivity implements RemoveDialog.Dial
     }
 
     private void onOff(boolean x){
+        //disable/enable buttons...
         int visibility = x ? View.VISIBLE : View.INVISIBLE;
         btnFavourite.setEnabled(x);
         btnRemove.setEnabled(x);
@@ -267,27 +303,32 @@ public class MainActivity extends AppCompatActivity implements RemoveDialog.Dial
     }
 
     private void gotoUrl(String s){
+        //open a page from web through url
         Uri url = Uri.parse(s);
         startActivity(new Intent(Intent.ACTION_VIEW, url));
     }
 
     private void openRemDialog(){
+        //open RemoveDialog class
         RemoveDialog dialog = new RemoveDialog();
         dialog.show(getSupportFragmentManager(), "RemoveDialog");
     }
 
     @Override
     public void confirmRemove() {
+        //this activates when you press 'YES' on RemoveDialog
         if(db.removeMovie(curMovie.getName()))
             Sirol.showText(MainActivity.this,curMovie.getName() + " removed.");
         else
             Sirol.showText(MainActivity.this,"Error removing " + curMovie.getName());
 
+        applyFilter = false;
         initData();
         getMoviesCount();
     }
 
     private void getMoviesCount(){
+        //show how many movies are shown
         if(cursor.getCount() == 1)
             Sirol.showText(MainActivity.this," 1 movie founded.");
         else

@@ -13,10 +13,12 @@ import androidx.annotation.Nullable;
 //URL (NULL)
 //webSite
 //name PK
-//isFavourite
+//favourite
 //image
 //status
+//custom
 
+//this is the dbHandler, so it will automatically do things in db
 public class dbHelper extends SQLiteOpenHelper {
 
     private Context context;
@@ -39,7 +41,7 @@ public class dbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        //create table
+        //create table with this SQL string
         String query = "CREATE TABLE " + TABLE_NAME + " (" +
                 COL_NAME + " VARCHAR(256) PRIMARY KEY, " +      //0
                 COL_URL + " VARCHAR(512) UNIQUE, " +            //1
@@ -53,32 +55,35 @@ public class dbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        //this works only if the database version is newer
+        //this works only if the database version is newer, the older db will be destroyed
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
 
     public boolean addMovie(String name, String url, String webSite, byte[] img, boolean custom){
+        //this function add movie to database
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();         //save values in this variable
         cv.put(COL_NAME, name);
         cv.put(COL_URL, url);
         cv.put(COL_WEBSITE, webSite);
         cv.put(COL_FAVOURITE, Boolean.FALSE);
-        cv.put(COL_FAVOURITE, 0);
+        cv.put(COL_FAVOURITE, 0);                       //default when it's created (not favorite)
         cv.put(COL_IMG, img);
         cv.put(COL_CUSTOM, custom);
-        cv.put(COL_STATUS, 0);
+        cv.put(COL_STATUS, 0);                          //default when it's created (to watch)
         return db.insert(TABLE_NAME, null, cv) != -1;
 
     }
 
     public boolean removeMovie(String name){
+        //used to remove a movie from database using name (PK)
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(TABLE_NAME, COL_NAME + " = '" + name + "'", null) != 0;
     }
 
     public boolean changeStatus(String name, int newStatus){
+        //used to change movie's status using name (PK)
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put("status", newStatus);
@@ -86,6 +91,7 @@ public class dbHelper extends SQLiteOpenHelper {
     }
 
     public boolean changeFavourite(String name, boolean newFav){
+        //used to change if the movie is favorite or not using name (PK)
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put("favourite", newFav);
@@ -93,14 +99,16 @@ public class dbHelper extends SQLiteOpenHelper {
     }
 
     public Cursor selectAll(){
+        //basic query, this select ALL movies in database
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
     }
 
     public Cursor applyFilters(String name, String webSite, int favorite, int status){
+        //this function build a query step by step adding everytime new information
         StringBuilder query = new StringBuilder();
         query.append("SELECT * FROM " + TABLE_NAME + " WHERE ");
-        int cont = 0;
+        int cont = 0;   //IMPORTANT VARIABLE to check if it's necessary to append 'AND ' or not
 
         if(!name.equals("")){
             query.append(COL_NAME + " LIKE '" + name + "%' ");
@@ -135,6 +143,7 @@ public class dbHelper extends SQLiteOpenHelper {
     }
 
     private void addAndToQuery(int cont, StringBuilder query){
+        //simple function to add AND
         if(cont > 0)
             query.append("AND ");
     }

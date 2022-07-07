@@ -5,6 +5,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -17,13 +18,13 @@ import android.widget.Spinner;
 
 //https://media.netflix.com/it/only-on-netflix/IDNETFLIX to retrieve images
 
+//this is the activity used to add a new movie to the db.
 public class AddMovie extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     private Spinner spnWebSite;
     private Button btnConfirm, btnCancel, btnUrl;
     private EditText inWebSite, inUrl, inName;
     private ImageButton inImg;
-    private final int WHITE = 0;      //color white
     private String imgPath = null;
     String webSite;
     dbHelper db;
@@ -45,13 +46,14 @@ public class AddMovie extends AppCompatActivity implements AdapterView.OnItemSel
 
 
     private void startBtnUrl(){
+        //When i click this button, i will add automatically AddMovie layout movie's name, lock the spinner with Netflix
+        //download the image and set ImageButton background to that image
         inUrl = findViewById(R.id.inUrl);
         btnUrl = findViewById(R.id.btnUrl);
 
         btnUrl.setOnClickListener(view -> {
             if(inUrl.getText().toString().trim().contains("www.netflix.com/") && inUrl.getText().toString().trim().contains("/title/")){
                 //SCRIPT
-                //add to database
             }
             else
                 Sirol.showText(AddMovie.this,"Insert netflix URL!");        //use this to create popups
@@ -59,7 +61,7 @@ public class AddMovie extends AppCompatActivity implements AdapterView.OnItemSel
     }
 
     private void startSpnWebSite(){
-        //to attach the spinner to String array in strings.xml called "websites"
+        //to attach the spinner to String array in strings.xml called "websites" (Netflix, HBO...)
         spnWebSite = findViewById(R.id.spnWebSite);
         ArrayAdapter<CharSequence> adapterWebSite = ArrayAdapter.createFromResource(this, R.array.websites, android.R.layout.simple_spinner_item);
         adapterWebSite.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -69,7 +71,8 @@ public class AddMovie extends AppCompatActivity implements AdapterView.OnItemSel
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        //when you select an item, check if it is Custom or not (if you implement AdapterView.OnItemSelectedListener you have to implement these onItemSelected and onNothingSelected)
+        //when you select an item, check if it is Custom or not (if you implement AdapterView.OnItemSelectedListener
+        // you have to implement these onItemSelected and onNothingSelected)
         inWebSite = findViewById(R.id.inWebSite);
         String webSiteTXT = adapterView.getItemAtPosition(i).toString();
         if(webSiteTXT.equals("Custom"))
@@ -100,14 +103,20 @@ public class AddMovie extends AppCompatActivity implements AdapterView.OnItemSel
 
             if(!inName.getText().toString().trim().isEmpty() && (!inWebSite.getText().toString().trim().isEmpty() || !inWebSite.isEnabled()) && imgPath != null){
                 if(inWebSite.isEnabled()) {
+                    //custom becomes true if "Custom" is selected, i added this variable to simplify
+                    //SELECT query.
                     webSite = inWebSite.getText().toString();
                     custom = true;
                 }
+
+                //url can be NULL -> if url is null, .toString() generate error (can't convert null to String)
+                //so i do this simple control
                 if(inUrl.getText().toString().trim().equals("") || inUrl.getText().toString().isEmpty())
                     queryRes = db.addMovie(inName.getText().toString().trim(), null, webSite.trim(), Sirol.imgToByte(inImg), custom);
                 else
                     queryRes = db.addMovie(inName.getText().toString().trim(), inUrl.getText().toString().trim(), webSite.trim(), Sirol.imgToByte(inImg), custom);
 
+                //queryRes -> 1 if the movie is added (TRUE) OR 0 if not (FALSE)
                 if(queryRes){
                     Sirol.showText(AddMovie.this,"Movie added!");
                     back();
@@ -127,6 +136,7 @@ public class AddMovie extends AppCompatActivity implements AdapterView.OnItemSel
     }
 
     private void back(){
+        //used to simplify code, open new Intent (back to MainActivity) and close this page
         startActivity(new Intent(AddMovie.this, MainActivity.class));
         finish();
     }
@@ -135,14 +145,14 @@ public class AddMovie extends AppCompatActivity implements AdapterView.OnItemSel
         //config Image Button
         //tutorial https://www.youtube.com/watch?v=6E5ODrmUtmo
         inImg = findViewById(R.id.inImg);
-        //new ActivityResultCallback<Uri>()
         ActivityResultLauncher<String> takeImage = registerForActivityResult(
                 new ActivityResultContracts.GetContent(),
                 result -> {                 //before was 'new ActivityResultCallback<Uri>()' now is lambda
                     if (result != null && !result.equals(Uri.EMPTY)) {
                         inImg.setImageURI(result);
                         imgPath = result.getPath();
-                        inImg.setBackgroundColor(WHITE);
+                        //i set background to transparent to make prettier it.
+                        inImg.setBackgroundColor(Color.TRANSPARENT);
                     }
                 }
         );

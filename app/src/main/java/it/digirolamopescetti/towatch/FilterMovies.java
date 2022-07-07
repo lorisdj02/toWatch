@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+//this activity is used to select movies applying certain filters to SELECT
 public class FilterMovies extends AppCompatActivity {
 
     Button btnCancel;
@@ -20,11 +21,13 @@ public class FilterMovies extends AppCompatActivity {
     RadioButton selectedWeb, selectedFavorite;
     ImageButton btnStatus;
 
+    //these are default values to know if these information are useless or not
     String name = "";
     int status = -1;
     String webSite = "";
     int favorite = -1;
 
+    //these are KEYS to communicate with MainActivity
     public static final String keyName = "_NAME";
     public static final String keyStatus = "_STATUS";
     public static final String keyWebSite = "_WEBSITE";
@@ -43,6 +46,7 @@ public class FilterMovies extends AppCompatActivity {
     }
 
     private void startBtnStatus(){
+        //simple function to change status and color of the square
         btnStatus = findViewById(R.id.selectStatus);
 
         btnStatus.setOnClickListener(v -> {
@@ -68,6 +72,7 @@ public class FilterMovies extends AppCompatActivity {
     }
 
     private void startBtnCancel(){
+        //if the user doesn't want filters, go back (and reset SELECT)
         btnCancel = findViewById(R.id.btnSelectCancel);
 
         btnCancel.setOnClickListener(v -> {
@@ -77,6 +82,7 @@ public class FilterMovies extends AppCompatActivity {
     }
 
     private void startBtnApply(){
+        //apply all filters and send it to main activity
         btnApply = findViewById(R.id.btnSelectApply);
         btnStatus = findViewById(R.id.selectStatus);
         inName = findViewById(R.id.selectName);
@@ -85,10 +91,12 @@ public class FilterMovies extends AppCompatActivity {
 
 
         btnApply.setOnClickListener(v -> {
+            //controls if a website is selected, if yes save it
             if (findViewById(groupWebSite.getCheckedRadioButtonId()) != null) {
                 selectedWeb = findViewById(groupWebSite.getCheckedRadioButtonId());
                 webSite = selectedWeb.getText().toString();
             }
+            //controls if favorite is checked, if yes change it to 1 (TRUE) or 0 (FALSE)
             if (findViewById(groupFavorite.getCheckedRadioButtonId()) != null){
                 selectedFavorite = findViewById(groupFavorite.getCheckedRadioButtonId());
                 if(selectedFavorite.getText().equals("Favorite")){
@@ -100,9 +108,11 @@ public class FilterMovies extends AppCompatActivity {
             }
             name = inName.getText().toString().trim();
 
+            //i apply filters even if one of this is checked.
             if(!(name.equals("") && status == -1 && webSite.equals("") && favorite == -1)){
                 Intent intent = new Intent(FilterMovies.this, MainActivity.class);
 
+                //.putExtra is used to communicate with the intent (MainActivity)
                 intent.putExtra(keyName, name);
                 intent.putExtra(keyWebSite, webSite);
                 intent.putExtra(keyFavorite, favorite);

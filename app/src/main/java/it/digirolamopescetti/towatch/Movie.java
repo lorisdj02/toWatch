@@ -18,6 +18,7 @@ public class Movie {
         2 -> GREEN -> watched
      */
 
+    //class that describes how a movie is made (simple class lol)
     public Movie(String name, String url, String webSite, Boolean favourite, int status, Bitmap image) {
         this.url = url;
         this.website = webSite;

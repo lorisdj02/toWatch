@@ -8,7 +8,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-
+//Do you want to delete this movie? Yes/Not
 public class RemoveDialog extends AppCompatDialogFragment {
 
     private DialogListener listener;
@@ -34,6 +34,7 @@ public class RemoveDialog extends AppCompatDialogFragment {
     }
 
     public interface DialogListener{
+        //this is important to implement function in MainActivity
         void confirmRemove();
     }
 
