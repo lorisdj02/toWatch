@@ -11,6 +11,11 @@
         <item>Custom</item>
     </string-array>
 
+    <!-- Common Strings -->
+    <string name="inName">Name</string>
+    <string name="yes">Yes</string>
+
+    <!-- Websites -->
     <string name="netflix">Netflix</string>
     <string name="primevideo">Prime Video</string>
     <string name="disney">Disney+</string>
@@ -18,4 +23,47 @@
     <string name="hulu">Hulu</string>
     <string name="hbomax">HBO Max</string>
     <string name="custom">Others</string>
+
+    <!-- MainActivity -->
+    <string name="moreMoviesFounded">movies founded.</string>
+    <string name="oneMovieFounded">1 movie founded.</string>
+    <string name="errorRemove">Error removing </string>
+    <string name="removed">removed.</string>
+    <string name="noMovies">No movies.</string>
+    <string name="noResults">No results.</string>
+    <string name="noUrlMain">No url for </string>
+    <string name="errorStatusMain">Error in status.</string>
+    <string name="toWatch">To watch</string>
+    <string name="watched">Watched</string>
+    <string name="watching">Watching</string>
+    <string name="errorFavoriteMain">Error in favorite.</string>
+    <string name="isFav">is a favorite!</string>
+    <string name="isNoFav">is no longer a favorite.</string>
+
+    <!-- AddMovie -->
+    <string name="fillFieldsAdd">Fill all fields!</string>
+    <string name="errorAdd">Error adding movie!</string>
+    <string name="addedMovie">Movie added!</string>
+    <string name="customAdd">Custom</string>
+    <string name="errorNetflixUrl">Insert netflix URL!</string>
+    <string name="inUrl">URL (optional)</string>
+    <string name="btnConfirmAdd">CONFIRM</string>
+    <string name="btnCancelAdd">CANCEL</string>
+
+    <!-- Settings -->
+    <string name="nightMode">Night Mode</string>
+    <string name="btnBackSettings">BACK</string>
+
+    <!-- FilterMovies -->
+    <string name="noFilters">Filters are empty!</string>
+    <string name="favorite">Favorite</string>
+    <string name="noFavorite">Not favorite</string>
+    <string name="selectFilters">Select filters.</string>
+    <string name="btnApply">APPLY</string>
+    <string name="btnReset">RESET</string>
+
+    <!-- RemoveDialog -->
+    <string name="attention">Attention!</string>
+    <string name="confirmRem">Do you want to delete this movie?</string>
+
 </resources>

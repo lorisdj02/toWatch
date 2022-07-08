@@ -18,7 +18,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 //As the name says, this is the main activity of the app.
 //IMPORTANT -> ALL STRINGS NEED TO BE IMPLEMENTED IN strings.xml TO BE USED WITH DIFFERENT LANGUAGES (penso sia così lol)
-//ADD PERMISSIONS (IMPORTANTTTTTTTTTTTTTTTTTTTTTTT)
 public class MainActivity extends AppCompatActivity implements RemoveDialog.DialogListener {
 
     FloatingActionButton btnAdd, btnRemove, btnNext, btnPrev, btnSort, btnSettings;
@@ -87,14 +86,14 @@ public class MainActivity extends AppCompatActivity implements RemoveDialog.Dial
         btnFavourite.setOnClickListener(v -> {
             if(curMovie.getFavourite()) {
                 curMovie.setFavourite(Boolean.FALSE);
-                Sirol.showText(MainActivity.this,curMovie.getName() + " is no longer a favorite.");
+                Sirol.showText(MainActivity.this,curMovie.getName() + " " + getString(R.string.isNoFav));
             }
             else {
                 curMovie.setFavourite(Boolean.TRUE);
-                Sirol.showText(MainActivity.this,curMovie.getName() + " is a favorite!");
+                Sirol.showText(MainActivity.this,curMovie.getName() + " " + getString(R.string.isFav));
             }
             if(!db.changeFavourite(curMovie.getName(), curMovie.getFavourite()))
-                Sirol.showText(MainActivity.this, "Error in favorite.");
+                Sirol.showText(MainActivity.this, getString(R.string.errorFavoriteMain));
             else{
                 //if it's false, it will display all data, else only the data we need
                 if(!applyFilter)
@@ -114,20 +113,20 @@ public class MainActivity extends AppCompatActivity implements RemoveDialog.Dial
 
             switch (curMovie.getStatus()) {
                 case 0:
-                    Sirol.showText(MainActivity.this,"Watching");
+                    Sirol.showText(MainActivity.this,getString(R.string.watching));
                     curMovie.setStatus(curMovie.getStatus() + 1);
                     break;
                 case 1:
-                    Sirol.showText(MainActivity.this,"Watched");
+                    Sirol.showText(MainActivity.this,getString(R.string.watched));
                     curMovie.setStatus(curMovie.getStatus() + 1);
                     break;
                 case 2:
-                    Sirol.showText(MainActivity.this,"To watch");
+                    Sirol.showText(MainActivity.this,getString(R.string.toWatch));
                     curMovie.setStatus(0);
                     break;
             }
             if(!db.changeStatus(curMovie.getName(), curMovie.getStatus()))
-                Sirol.showText(MainActivity.this, "Error in status.");
+                Sirol.showText(MainActivity.this, getString(R.string.errorStatusMain));
             else {
                 //the same as before
                 if (!applyFilter)
@@ -179,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements RemoveDialog.Dial
             if(curMovie.getUrl() != null)
                 gotoUrl(curMovie.getUrl());
             else
-                Sirol.showText(MainActivity.this, "No url for " + curMovie.getName() + "!");
+                Sirol.showText(MainActivity.this, getString(R.string.noUrlMain) + " " + curMovie.getName() + "!");
         });
     }
 
@@ -226,9 +225,9 @@ public class MainActivity extends AppCompatActivity implements RemoveDialog.Dial
         if(cursor.getCount() == 0){
             //if TABLE is empty, disable
             outWebSite.setText("");
-            outName.setText("No movies.");
+            outName.setText(getString(R.string.noMovies));
             if(applyFilter)
-                outName.setText("No results.");
+                outName.setText(getString(R.string.noResults));
             else
                 btnSort.setEnabled(false);
             onOff(false);
@@ -318,9 +317,9 @@ public class MainActivity extends AppCompatActivity implements RemoveDialog.Dial
     public void confirmRemove() {
         //this activates when you press 'YES' on RemoveDialog
         if(db.removeMovie(curMovie.getName()))
-            Sirol.showText(MainActivity.this,curMovie.getName() + " removed.");
+            Sirol.showText(MainActivity.this,curMovie.getName() + " " + getString(R.string.removed));
         else
-            Sirol.showText(MainActivity.this,"Error removing " + curMovie.getName());
+            Sirol.showText(MainActivity.this,getString(R.string.errorRemove) + " " + curMovie.getName());
 
         applyFilter = false;
         initData();
@@ -330,8 +329,8 @@ public class MainActivity extends AppCompatActivity implements RemoveDialog.Dial
     private void getMoviesCount(){
         //show how many movies are shown
         if(cursor.getCount() == 1)
-            Sirol.showText(MainActivity.this," 1 movie founded.");
+            Sirol.showText(MainActivity.this, getString(R.string.oneMovieFounded));
         else
-            Sirol.showText(MainActivity.this,cursor.getCount() + " movies founded.");
+            Sirol.showText(MainActivity.this,cursor.getCount() + " " + getString(R.string.moreMoviesFounded));
     }
 }

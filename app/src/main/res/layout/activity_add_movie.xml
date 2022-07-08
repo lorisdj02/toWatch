@@ -12,7 +12,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="24dp"
         android:ems="10"
-        android:hint="URL (optional)"
+        android:hint="@string/inUrl"
         android:inputType="textUri|text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +45,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="40dp"
         android:ems="10"
-        android:hint="Name"
+        android:hint="@string/inName"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -92,7 +92,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:enabled="true"
-        android:text="Confirm"
+        android:text="@string/btnConfirmAdd"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -102,7 +102,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
-        android:text="Cancel"
+        android:text="@string/btnCancelAdd"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

@@ -3,8 +3,11 @@ package it.digirolamopescetti.towatch;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -56,7 +59,7 @@ public class AddMovie extends AppCompatActivity implements AdapterView.OnItemSel
                 //SCRIPT
             }
             else
-                Sirol.showText(AddMovie.this,"Insert netflix URL!");        //use this to create popups
+                Sirol.showText(AddMovie.this,getString(R.string.errorNetflixUrl));        //use this to create popups
             });
     }
 
@@ -75,7 +78,7 @@ public class AddMovie extends AppCompatActivity implements AdapterView.OnItemSel
         // you have to implement these onItemSelected and onNothingSelected)
         inWebSite = findViewById(R.id.inWebSite);
         String webSiteTXT = adapterView.getItemAtPosition(i).toString();
-        if(webSiteTXT.equals("Custom"))
+        if(webSiteTXT.equals(getString(R.string.customAdd)))
             inWebSite.setEnabled(true);
         else {
             inWebSite.setEnabled(false);
@@ -118,14 +121,14 @@ public class AddMovie extends AppCompatActivity implements AdapterView.OnItemSel
 
                 //queryRes -> 1 if the movie is added (TRUE) OR 0 if not (FALSE)
                 if(queryRes){
-                    Sirol.showText(AddMovie.this,"Movie added!");
+                    Sirol.showText(AddMovie.this,getString(R.string.addedMovie));
                     back();
                 }
                 else
-                    Sirol.showText(AddMovie.this,"Error adding movie!");
+                    Sirol.showText(AddMovie.this,getString(R.string.errorAdd));
             }
             else
-                Sirol.showText(AddMovie.this,"Fill all fields!");
+                Sirol.showText(AddMovie.this,getString(R.string.fillFieldsAdd));
         });
     }
 

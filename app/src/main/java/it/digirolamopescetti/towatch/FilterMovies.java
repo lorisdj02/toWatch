@@ -94,12 +94,15 @@ public class FilterMovies extends AppCompatActivity {
             //controls if a website is selected, if yes save it
             if (findViewById(groupWebSite.getCheckedRadioButtonId()) != null) {
                 selectedWeb = findViewById(groupWebSite.getCheckedRadioButtonId());
-                webSite = selectedWeb.getText().toString();
+                if(selectedWeb.getText() == getString(R.string.custom))
+                    webSite = "Others";
+                else
+                    webSite = selectedWeb.getText().toString();
             }
             //controls if favorite is checked, if yes change it to 1 (TRUE) or 0 (FALSE)
             if (findViewById(groupFavorite.getCheckedRadioButtonId()) != null){
                 selectedFavorite = findViewById(groupFavorite.getCheckedRadioButtonId());
-                if(selectedFavorite.getText().equals("Favorite")){
+                if(selectedFavorite.getText().equals(getString(R.string.favorite))){
                     favorite = 1;
                 }
                 else{
@@ -122,7 +125,7 @@ public class FilterMovies extends AppCompatActivity {
                 finish();
             }
             else {
-                Sirol.showText(FilterMovies.this,"Filters are empty!");
+                Sirol.showText(FilterMovies.this,getString(R.string.noFilters));
 
             }
         });

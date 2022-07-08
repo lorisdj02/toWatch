@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
-        android:text="Select filters:"
+        android:text="@string/selectFilters"
         android:textSize="35sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,7 +26,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="56dp"
         android:ems="10"
-        android:hint="Name"
+        android:hint="@string/inName"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -100,7 +100,7 @@
         android:layout_height="50dp"
         android:layout_marginEnd="36dp"
         android:layout_marginBottom="28dp"
-        android:text="Apply"
+        android:text="@string/btnApply"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -110,7 +110,7 @@
         android:layout_height="50dp"
         android:layout_marginStart="36dp"
         android:layout_marginBottom="28dp"
-        android:text="Reset"
+        android:text="@string/btnReset"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -128,13 +128,13 @@
             android:id="@+id/radioFavorite"
             android:layout_width="150dp"
             android:layout_height="45dp"
-            android:text="Favorite" />
+            android:text="@string/favorite" />
 
         <RadioButton
             android:id="@+id/radioNotFavorite"
             android:layout_width="150dp"
             android:layout_height="45dp"
-            android:text="Not Favorite" />
+            android:text="@string/noFavorite" />
     </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
