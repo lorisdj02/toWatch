@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".AddMovie">
 
     <EditText
@@ -14,7 +15,9 @@
         android:ems="10"
         android:hint="@string/inUrl"
         android:inputType="textUri|text"
+        android:textColor="@color/mainText"
         app:layout_constraintEnd_toEndOf="parent"
+        android:textColorHint="@color/hint"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -23,7 +26,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
-        android:text="Add New Movie"
+        android:text="@string/addNewMovie"
+        android:textColor="@color/secondaryText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -34,9 +38,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:enabled="true"
-        android:text="Neflix URL"
+        android:text="@string/btnUrl"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:backgroundTint="@color/buttons"
         app:layout_constraintTop_toBottomOf="@+id/inUrl" />
 
     <EditText
@@ -46,7 +51,9 @@
         android:layout_marginTop="40dp"
         android:ems="10"
         android:hint="@string/inName"
+        android:textColorHint="@color/hint"
         android:inputType="textPersonName"
+        android:textColor="@color/mainText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,7 +64,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="Image:"
+        android:text="@string/image"
         app:layout_constraintBottom_toTopOf="@+id/inImg"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -80,8 +87,10 @@
         android:clickable="false"
         android:ems="10"
         android:enabled="false"
+        android:textColorHint="@color/hint"
         android:hint="WebSite"
         android:inputType="textPersonName"
+        android:textColor="@color/mainText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spnWebSite" />
 
@@ -92,6 +101,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:enabled="true"
+        android:backgroundTint="@color/buttons"
         android:text="@string/btnConfirmAdd"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -103,6 +113,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
         android:text="@string/btnCancelAdd"
+        android:backgroundTint="@color/buttons"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

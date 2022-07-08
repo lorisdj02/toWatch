@@ -49,6 +49,9 @@
     <string name="inUrl">URL (optional)</string>
     <string name="btnConfirmAdd">CONFIRM</string>
     <string name="btnCancelAdd">CANCEL</string>
+    <string name="btnUrl">Netflix URL</string>
+    <string name="addNewMovie">Add new movie</string>
+    <string name="image">Image:</string>
 
     <!-- Settings -->
     <string name="nightMode">Night Mode</string>
