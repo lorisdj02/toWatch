@@ -16,8 +16,8 @@
         android:hint="@string/inUrl"
         android:inputType="textUri|text"
         android:textColor="@color/mainText"
-        app:layout_constraintEnd_toEndOf="parent"
         android:textColorHint="@color/hint"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
