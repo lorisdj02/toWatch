@@ -16,12 +16,12 @@
     <string name="yes">Yes</string>
 
     <!-- Websites -->
-    <string name="netflix">Netflix</string>
-    <string name="primevideo">Prime Video</string>
-    <string name="disney">Disney+</string>
-    <string name="crunchyroll">Crunchyroll</string>
-    <string name="hulu">Hulu</string>
-    <string name="hbomax">HBO Max</string>
+    <string name="netflix" translatable="false">Netflix</string>
+    <string name="primevideo" translatable="false">Prime Video</string>
+    <string name="disney" translatable="false">Disney+</string>
+    <string name="crunchyroll" translatable="false">Crunchyroll</string>
+    <string name="hulu" translatable="false">Hulu</string>
+    <string name="hbomax" translatable="false">HBO Max</string>
     <string name="custom">Others</string>
 
     <!-- MainActivity -->
@@ -31,7 +31,7 @@
     <string name="removed">removed.</string>
     <string name="noMovies">No movies.</string>
     <string name="noResults">No results.</string>
-    <string name="noUrlMain">No url for </string>
+    <string name="noUrlMain">"No URL for "</string>
     <string name="errorStatusMain">Error in status.</string>
     <string name="toWatch">To watch</string>
     <string name="watched">Watched</string>
@@ -63,7 +63,7 @@
     <string name="noFavorite">Not favorite</string>
     <string name="selectFilters">Select filters.</string>
     <string name="btnApply">APPLY</string>
-    <string name="btnReset">RESET</string>
+    <string name="btnReset" translatable="false">RESET</string>
 
     <!-- RemoveDialog -->
     <string name="attention">Attention!</string>

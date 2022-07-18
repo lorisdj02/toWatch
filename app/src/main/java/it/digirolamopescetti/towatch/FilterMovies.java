@@ -1,6 +1,7 @@
 package it.digirolamopescetti.towatch;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -36,6 +37,7 @@ public class FilterMovies extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        darkCheck();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter_movies);
 
@@ -131,4 +133,10 @@ public class FilterMovies extends AppCompatActivity {
         });
     }
 
+    private void darkCheck(){
+        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
+            setTheme(R.style.Theme_DarkMode);
+        else
+            setTheme(R.style.Theme_Light);
+    }
 }

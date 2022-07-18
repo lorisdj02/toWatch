@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">toWatch</string>
+    <string name="inName">Nome</string>
+    <string name="yes">Sì</string>
+    <string name="custom">Altri</string>
+    <string name="moreMoviesFounded">film trovati.</string>
+    <string name="oneMovieFounded">1 film trovato.</string>
+    <string name="errorRemove">Errore nella rimozione</string>
+    <string name="removed">rimosso.</string>
+    <string name="noMovies">Nessun film.</string>
+    <string name="noResults">Nessun risultato.</string>
+    <string name="noUrlMain">Nessun URL per</string>
+    <string name="errorStatusMain">Errore nello stato.</string>
+    <string name="toWatch">Da guardare</string>
+    <string name="watched">Guardato</string>
+    <string name="watching">Guardando</string>
+    <string name="errorFavoriteMain">Errore nei preferiti.</string>
+    <string name="isFav">è un preferito!</string>
+    <string name="isNoFav">non è più un preferito.</string>
+    <string name="fillFieldsAdd">Riempi tutti i campi!</string>
+    <string name="errorAdd">Errore nell\'aggiunta del film!</string>
+    <string name="addedMovie">Film aggiunto!</string>
+    <string name="customAdd">Personalizzato</string>
+    <string name="errorNetflixUrl">Inserisci URL di Netflix!</string>
+    <string name="inUrl">URL (opzionale)</string>
+    <string name="btnConfirmAdd">CONFERMA</string>
+    <string name="btnCancelAdd">CANCELLA</string>
+    <string name="btnUrl">URL di Netflix</string>
+    <string name="addNewMovie">Aggiungi un nuovo film</string>
+    <string name="image">Immagine:</string>
+    <string name="nightMode">Modalità notturna</string>
+    <string name="btnBackSettings">INDIETRO</string>
+    <string name="noFilters">I filtri sono vuoti!</string>
+    <string name="favorite">Preferito</string>
+    <string name="noFavorite">Non preferito</string>
+    <string name="selectFilters">Seleziona i filtri.</string>
+    <string name="btnApply">APPLICA</string>
+    <string name="attention">Attenzione!</string>
+    <string name="confirmRem">Vuoi eliminare questo film?</string>
+</resources>

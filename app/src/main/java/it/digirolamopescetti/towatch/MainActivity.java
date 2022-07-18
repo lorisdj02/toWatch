@@ -1,20 +1,27 @@
 package it.digirolamopescetti.towatch;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.content.res.AppCompatResources;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.Locale;
 
 //As the name says, this is the main activity of the app.
 //IMPORTANT -> ALL STRINGS NEED TO BE IMPLEMENTED IN strings.xml TO BE USED WITH DIFFERENT LANGUAGES (penso sia così lol)
@@ -40,10 +47,11 @@ public class MainActivity extends AppCompatActivity implements RemoveDialog.Dial
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        darkCheck();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        loadLocale();
         startBtnAdd();              //use function to init layouts things (devo scrivere in inglese sennò mi da ste cose verdi)
         startBtnRemove();
         startBtnFav();
@@ -59,6 +67,12 @@ public class MainActivity extends AppCompatActivity implements RemoveDialog.Dial
         receiveFilters();
 
         getMoviesCount();
+    }
+
+    private void loadLocale(){
+        SharedPreferences prefs = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        String language = prefs.getString("My_Lang", "");
+        setLocale(language);
     }
 
     private void startBtnAdd(){
@@ -333,4 +347,24 @@ public class MainActivity extends AppCompatActivity implements RemoveDialog.Dial
         else
             Sirol.showText(MainActivity.this,cursor.getCount() + " " + getString(R.string.moreMoviesFounded));
     }
+
+    private void darkCheck(){
+        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
+            setTheme(R.style.Theme_DarkMode);
+        else
+            setTheme(R.style.Theme_Light);
+    }
+
+    private void setLocale(String lang){
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.setLocale(locale);
+        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+        SharedPreferences.Editor editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
+        editor.putString("My_Lang", lang);
+        Log.println(Log.ERROR, "TAG", lang);
+        editor.apply();
+    }
+
 }

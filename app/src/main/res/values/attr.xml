@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="dark_theme">
+
+        <attr name="background_pers" format="color"/>
+        <attr name="buttons" format="color"/>
+        <attr name="mainText" format="color"/>
+        <attr name="secondaryText" format="color"/>
+        <attr name="hint" format="color"/>
+        <attr name="floatingButtons" format="color"/>
+        <attr name="textButton" format="color"/>
+
+        <!--
+        <color name="background">#272727</color>
+        <color name="buttons">#FF6200EE</color>
+        <color name="mainText">#FFFFFF</color>
+        <color name="secondaryText">#A5A5A5</color>
+        <color name="hint">#A3A3A3</color>
+        <color name="floatingButtons">#DA7203</color>
+        -->
+    </declare-styleable>
+</resources>

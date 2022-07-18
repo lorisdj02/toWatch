@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="?attr/background_pers"
     tools:context=".FilterMovies">
 
     <TextView
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
         android:text="@string/selectFilters"
-        android:textColor="@color/secondaryText"
+        android:textColor="?attr/secondaryText"
         android:textSize="35sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,49 +47,49 @@
             android:layout_width="150dp"
             android:layout_height="40dp"
             android:text="@string/netflix"
-            android:textColor="@color/mainText" />
+            android:textColor="?attr/mainText" />
 
         <RadioButton
             android:id="@+id/radioPrime"
             android:layout_width="150dp"
             android:layout_height="40dp"
             android:text="@string/primevideo"
-            android:textColor="@color/mainText" />
+            android:textColor="?attr/mainText" />
 
         <RadioButton
             android:id="@+id/radioDisney"
             android:layout_width="150dp"
             android:layout_height="40dp"
             android:text="@string/disney"
-            android:textColor="@color/mainText" />
+            android:textColor="?attr/mainText" />
 
         <RadioButton
             android:id="@+id/radioCrunchyroll"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:text="@string/crunchyroll"
-            android:textColor="@color/mainText" />
+            android:textColor="?attr/mainText" />
 
         <RadioButton
             android:id="@+id/radioHulu"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:text="@string/hulu"
-            android:textColor="@color/mainText" />
+            android:textColor="?attr/mainText" />
 
         <RadioButton
             android:id="@+id/radioHBO"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:text="@string/hbomax"
-            android:textColor="@color/mainText" />
+            android:textColor="?attr/mainText" />
 
         <RadioButton
             android:id="@+id/radioOthers"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:text="@string/custom"
-            android:textColor="@color/mainText" />
+            android:textColor="?attr/mainText" />
 
     </RadioGroup>
 
@@ -109,10 +109,11 @@
         android:layout_height="50dp"
         android:layout_marginEnd="36dp"
         android:layout_marginBottom="28dp"
-        android:backgroundTint="@color/buttons"
+        android:backgroundTint="?attr/buttons"
         android:text="@string/btnApply"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="?attr/textButton"/>
 
     <Button
         android:id="@+id/btnSelectCancel"
@@ -120,10 +121,11 @@
         android:layout_height="50dp"
         android:layout_marginStart="36dp"
         android:layout_marginBottom="28dp"
-        android:backgroundTint="@color/buttons"
+        android:backgroundTint="?attr/buttons"
         android:text="@string/btnReset"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="?attr/textButton"/>
 
     <RadioGroup
         android:id="@+id/selectFavorite"
@@ -140,14 +142,14 @@
             android:layout_width="150dp"
             android:layout_height="45dp"
             android:text="@string/favorite"
-            android:textColor="@color/mainText" />
+            android:textColor="?attr/mainText" />
 
         <RadioButton
             android:id="@+id/radioNotFavorite"
             android:layout_width="150dp"
             android:layout_height="45dp"
             android:text="@string/noFavorite"
-            android:textColor="@color/mainText" />
+            android:textColor="?attr/mainText" />
     </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

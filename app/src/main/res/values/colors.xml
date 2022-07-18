@@ -7,11 +7,12 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-
+<!--
     <color name="background">#FFFFFFFF</color>
     <color name="buttons">#FF6200EE</color>
     <color name="mainText">#272727</color>
     <color name="secondaryText">#747474</color>
     <color name="hint">#A3A3A3</color>
     <color name="floatingButtons">#FF03DAC5</color>
+-->
 </resources>

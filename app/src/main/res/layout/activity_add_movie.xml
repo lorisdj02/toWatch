@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="?attr/background_pers"
     tools:context=".AddMovie">
 
     <EditText
@@ -15,8 +15,8 @@
         android:ems="10"
         android:hint="@string/inUrl"
         android:inputType="textUri|text"
-        android:textColor="@color/mainText"
-        android:textColorHint="@color/hint"
+        android:textColor="?attr/mainText"
+        android:textColorHint="?attr/hint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
         android:text="@string/addNewMovie"
-        android:textColor="@color/secondaryText"
+        android:textColor="?attr/secondaryText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -37,12 +37,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:backgroundTint="?attr/buttons"
         android:enabled="true"
         android:text="@string/btnUrl"
+        android:textColor="?attr/textButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:backgroundTint="@color/buttons"
-        app:layout_constraintTop_toBottomOf="@+id/inUrl" />
+        app:layout_constraintTop_toBottomOf="@+id/inUrl"
+        />
 
     <EditText
         android:id="@+id/inName"
@@ -51,9 +53,9 @@
         android:layout_marginTop="40dp"
         android:ems="10"
         android:hint="@string/inName"
-        android:textColorHint="@color/hint"
+        android:textColorHint="?attr/hint"
         android:inputType="textPersonName"
-        android:textColor="@color/mainText"
+        android:textColor="?attr/mainText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -87,10 +89,10 @@
         android:clickable="false"
         android:ems="10"
         android:enabled="false"
-        android:textColorHint="@color/hint"
+        android:textColorHint="?attr/hint"
         android:hint="WebSite"
         android:inputType="textPersonName"
-        android:textColor="@color/mainText"
+        android:textColor="?attr/mainText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spnWebSite" />
 
@@ -101,10 +103,11 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:enabled="true"
-        android:backgroundTint="@color/buttons"
+        android:backgroundTint="?attr/buttons"
         android:text="@string/btnConfirmAdd"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="?attr/textButton"/>
 
     <Button
         android:id="@+id/btnCancel"
@@ -113,9 +116,10 @@
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
         android:text="@string/btnCancelAdd"
-        android:backgroundTint="@color/buttons"
+        android:backgroundTint="?attr/buttons"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="?attr/textButton"/>
 
     <ImageButton
         android:id="@+id/inImg"

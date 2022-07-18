@@ -3,6 +3,7 @@ package it.digirolamopescetti.towatch;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
@@ -36,6 +37,7 @@ public class AddMovie extends AppCompatActivity implements AdapterView.OnItemSel
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        darkCheck();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_movie);
 
@@ -160,5 +162,12 @@ public class AddMovie extends AppCompatActivity implements AdapterView.OnItemSel
                 }
         );
         inImg.setOnClickListener(view -> takeImage.launch("image/*"));      //before was 'new View.OnClickListener()', now is lambda
+    }
+
+    private void darkCheck(){
+        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
+            setTheme(R.style.Theme_DarkMode);
+        else
+            setTheme(R.style.Theme_Light);
     }
 }
