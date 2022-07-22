@@ -99,8 +99,10 @@ public class Settings extends AppCompatActivity {
     private void darkCheck(){
         if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
             setTheme(R.style.Theme_DarkMode);
-        else
+        else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             setTheme(R.style.Theme_Light);
+        }
     }
 
     private void setLocale(String lang){

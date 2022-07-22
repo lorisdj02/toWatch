@@ -38,4 +38,17 @@
     <string name="btnApply">APPLICA</string>
     <string name="attention">Attenzione!</string>
     <string name="confirmRem">Vuoi eliminare questo film?</string>
+    <string name="errorUrl">Impossibile aggiungere il film!</string>
+    <string name="errorConnection">Hai bisogno della connesione ad internet per usare l\'URL di Netflix!</string>
+    <string name="retry">Riprova</string>
+
+    <string-array name="websites">
+        <item>Netflix</item>
+        <item>Prime Video</item>
+        <item>Disney+</item>
+        <item>Crunchyroll</item>
+        <item>Hulu</item>
+        <item>HBO Max</item>
+        <item>Personalizzato</item>
+    </string-array>
 </resources>

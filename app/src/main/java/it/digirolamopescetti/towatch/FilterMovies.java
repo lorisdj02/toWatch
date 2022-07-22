@@ -96,7 +96,7 @@ public class FilterMovies extends AppCompatActivity {
             //controls if a website is selected, if yes save it
             if (findViewById(groupWebSite.getCheckedRadioButtonId()) != null) {
                 selectedWeb = findViewById(groupWebSite.getCheckedRadioButtonId());
-                if(selectedWeb.getText() == getString(R.string.custom))
+                if(selectedWeb.getText().equals(getString(R.string.custom)))
                     webSite = "Others";
                 else
                     webSite = selectedWeb.getText().toString();
@@ -136,7 +136,9 @@ public class FilterMovies extends AppCompatActivity {
     private void darkCheck(){
         if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
             setTheme(R.style.Theme_DarkMode);
-        else
+        else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             setTheme(R.style.Theme_Light);
+        }
     }
 }

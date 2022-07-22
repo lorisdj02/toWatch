@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.ConnectivityManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -31,7 +32,17 @@ public class Sirol {
         Bitmap bm = ((BitmapDrawable)image.getDrawable()).getBitmap();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bm.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        return stream.toByteArray();
+        byte [] output = stream.toByteArray();
+
+        //compress image to 500kb
+        while(output.length > 500000){
+            Bitmap bitmap = BitmapFactory.decodeByteArray(output, 0, output.length);
+            Bitmap resized = Bitmap.createScaledBitmap(bitmap, (int)(bitmap.getWidth()*0.8), (int)(bitmap.getHeight()*0.8), true);
+            ByteArrayOutputStream stream2 = new ByteArrayOutputStream();
+            resized.compress(Bitmap.CompressFormat.PNG, 100, stream2);
+            output = stream2.toByteArray();
+        }
+        return output;
     }
 
     public static byte[] imgToByte(ImageView image){
@@ -41,4 +52,5 @@ public class Sirol {
         bm.compress(Bitmap.CompressFormat.PNG, 100, stream);
         return stream.toByteArray();
     }
+
 }

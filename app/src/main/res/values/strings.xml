@@ -52,6 +52,9 @@
     <string name="btnUrl">Netflix URL</string>
     <string name="addNewMovie">Add new movie</string>
     <string name="image">Image:</string>
+    <string name="errorUrl">Can\'t add title!</string>
+    <string name="errorConnection">You need internet connection to use a Netflix URL!</string>
+    <string name="retry">Retry</string>
 
     <!-- Settings -->
     <string name="nightMode">Night Mode</string>
