@@ -120,14 +120,14 @@ public class dbHelper extends SQLiteOpenHelper {
             if(!webSite.equals("Others"))
                 query.append(COL_WEBSITE + " = '" + webSite + "' ");
             else
-                query.append(COL_CUSTOM + " = TRUE ");
+                query.append(COL_CUSTOM + " = 1 ");
             cont++;
         }
 
         if(favorite != -1){
             addAndToQuery(cont, query);
-            boolean fav = favorite == 1 ? Boolean.TRUE : Boolean.FALSE;
-            query.append(COL_FAVOURITE + " = " + fav + " ");
+            //boolean fav = favorite == 1 ? Boolean.TRUE : Boolean.FALSE;
+            query.append(COL_FAVOURITE + " = " + favorite + " ");
             cont++;
         }
 
