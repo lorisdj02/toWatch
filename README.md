@@ -1,4 +1,4 @@
-Web Application for Movie/TV Series Management
+# Web Application for Movie/TV Series Management
 This web application allows users to add movies and TV series to a local database, along with associated images. While web scraping functionality is available, it is optional. The primary feature of the app is the ability to manually add and manage entries, which are stored in the local database and can be filtered based on various criteria.
 
 Features:
